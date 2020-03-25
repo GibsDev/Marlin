@@ -287,11 +287,6 @@ void MarlinUI::init_lcd() {
 
   #endif // !MKS_LCD12864B
 
-  #if HAS_LCD_CONTRAST
-    refresh_contrast();
-    refresh_contrast();
-  #endif
-
   uxg_SetUtf8Fonts(g_fontinfo, COUNT(g_fontinfo));
 }
 

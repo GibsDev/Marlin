@@ -269,7 +269,7 @@
   #define _LCD_CONTRAST_MIN  120
   #define _LCD_CONTRAST_INIT 195
 #elif ENABLED(FYSETC_MINI_12864)
-  #define _LCD_CONTRAST_INIT 220
+  #define _LCD_CONTRAST_INIT 255
 #elif ENABLED(ULTI_CONTROLLER)
   #define _LCD_CONTRAST_INIT 127
   #define _LCD_CONTRAST_MAX  254
@@ -286,7 +286,7 @@
     #ifdef _LCD_CONTRAST_MIN
       #define LCD_CONTRAST_MIN _LCD_CONTRAST_MIN
     #else
-      #define LCD_CONTRAST_MIN 0
+      #define LCD_CONTRAST_MIN 127
     #endif
   #endif
   #ifndef LCD_CONTRAST_INIT
