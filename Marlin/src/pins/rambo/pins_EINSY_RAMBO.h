@@ -127,10 +127,11 @@
 //
 // Misc. Functions
 //
-#define SDSS                                  77
-#define LED_PIN                               13
-#define CASE_LIGHT_PIN                         9
-
+#define SDSS               77
+#define LED_PIN            13
+#if DISABLED(FYSETC_MINI_12864)
+  #define CASE_LIGHT_PIN      9
+#endif
 //
 // M3/M4/M5 - Spindle/Laser Control
 //
@@ -149,11 +150,15 @@
 //
 // LCD / Controller
 //
-#if HAS_SPI_LCD || TOUCH_UI_ULTIPANEL
+#if HAS_SPI_LCD || TOUCH_UI_ULTIPANEL || ENABLED(FYSETC_MINI_12864)
 
-  #define KILL_PIN                            32
+  #if ENABLED(FYSETC_MINI_12864)
+    #define KILL_PIN         5
+  #else
+    #define KILL_PIN         32
+  #endif
 
-  #if ENABLED(ULTIPANEL) || TOUCH_UI_ULTIPANEL
+  #if ENABLED(ULTIPANEL) || TOUCH_UI_ULTIPANEL || ENABLED(FYSETC_MINI_12864)
 
     #if ENABLED(CR10_STOCKDISPLAY)
       #define LCD_PINS_RS                     85
@@ -162,19 +167,34 @@
       #define BTN_EN1                         61
       #define BTN_EN2                         59
     #else
-      #define LCD_PINS_RS                     82
-      #define LCD_PINS_ENABLE                 61
-      #define LCD_PINS_D4                     59
-      #define LCD_PINS_D5                     70
-      #define LCD_PINS_D6                     85
-      #define LCD_PINS_D7                     71
-      #define BTN_EN1                         14
-      #define BTN_EN2                         72
+      #define LCD_PINS_RS     82
+      #define LCD_PINS_ENABLE 61
+      #define LCD_PINS_D4     59
+      #define LCD_PINS_D5     70
+      #define LCD_PINS_D6     85
+      #define LCD_PINS_D7     71
+      #if ENABLED(FYSETC_MINI_12864)
+        #define BTN_EN1         72
+        #define BTN_EN2         14
+      #else
+        #define BTN_EN1         14
+        #define BTN_EN2         72
+      #endif
     #endif
 
     #define BTN_ENC                            9  // AUX-2
     #define BEEPER_PIN                        84  // AUX-4
     #define SD_DETECT_PIN                     15
+
+    #if ENABLED(FYSETC_MINI_12864)
+      #define SD_DETECT_PIN   15
+      #define LCD_RESET_PIN   LCD_PINS_D4
+      #define MOSI_PIN        51
+      #define DOGLCD_A0       LCD_PINS_RS
+      #define DOGLCD_CS       LCD_PINS_ENABLE
+      #define DOGLCD_SCK      52
+      #define DOGLCD_MISO     50
+    #endif
 
   #endif // ULTIPANEL || TOUCH_UI_ULTIPANEL
 #endif // HAS_SPI_LCD
